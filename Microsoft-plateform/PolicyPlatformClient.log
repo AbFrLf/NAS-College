@@ -1,0 +1,27 @@
+2013-08-26	10:11:24:808	 868	89c	Initializing service manager.
+2013-08-26	10:11:24:808	 868	89c	Service manager is starting.
+2013-08-26	10:11:24:808	 868	e64	Service manager starting service [lppsvc].
+2013-08-26	10:11:24:824	 868	e64	Service manager asked to start service [lppsvc].
+2013-08-26	10:11:24:824	 868	e64	Service manager invoking service [lppsvc] ServiceMain.
+2013-08-26	10:11:24:870	 868	e64	HostableServiceBase ServiceMain
+2013-08-26	10:11:24:870	 868	e64	HostableServiceBase SetServiceStatus
+2013-08-26	10:11:24:870	 868	e64	HostableServiceBase Run
+2013-08-26	10:11:24:902	 868	e64	HostableServiceBase SetServiceStatus
+2013-08-26	10:11:24:902	 868	494	Service manager starting service [lpasvc].
+2013-08-26	10:11:24:902	 868	494	Service manager asked to start service [lpasvc].
+2013-08-26	10:11:24:902	 868	494	Service manager invoking service [lpasvc] ServiceMain.
+2013-08-26	10:11:24:948	 868	494	HostableServiceBase ServiceMain
+2013-08-26	10:11:24:948	 868	494	HostableServiceBase SetServiceStatus
+2013-08-26	10:11:24:948	 868	494	HostableServiceBase Run
+2013-08-26	10:11:24:948	 868	494	HostableServiceBase SetServiceStatus
+2013-08-26	10:11:25:806	 868	b60	Creating new LPA store instance
+2013-08-26	10:11:26:306	 868	b60	Initialized LPA store instance from '[C:\Program Files\Microsoft Policy Platform\authorityDb\store.sdf]'
+2013-08-26	10:12:25:399	 868	d44	HostableServiceBase SetServiceStatus
+2013-08-26	10:12:25:399	 868	d44	HostableServiceBase SetServiceStatus
+2013-08-26	10:12:25:399	 868	494	HostableServiceBase SetServiceStatus
+2013-08-26	10:12:25:399	 868	494	Service [lpasvc] ServiceMain exited.
+2013-08-26	10:12:25:399	 868	494	Service [lpasvc] exited.
+2013-08-26	10:12:25:399	 868	e64	HostableServiceBase SetServiceStatus
+2013-08-26	10:12:25:399	 868	e64	Service [lppsvc] ServiceMain exited.
+2013-08-26	10:12:25:399	 868	e64	Service [lppsvc] exited.
+2013-08-26	10:12:25:399	 868	89c	Service manager is terminating.
