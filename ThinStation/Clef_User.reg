@@ -1,0 +1,24 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+"Shell"="wscript C:\ThinStation\Start_Bureau.vbs"
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"WallPaper"="C:\ThinStation\college.bmp"
+"OriginalWallPaper"="C:\ThinStation\college.bmp"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableTaskMgr"="1"
+"DisableLockWorkstation"="1"
+"DisableChangePassword"="1"
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"ScreenSaveActive"="0"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+"DefaultUserName"="user"
+"DefaultPassword"="P@ssw0rd"
+"AutoAdminLogon"="1"
+"ForceAutoLogon"="1"
+"LogonType"="0"
+

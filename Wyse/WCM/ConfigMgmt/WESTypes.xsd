@@ -1,0 +1,1427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2010 Wyse Technology, Inc.
+
+Current Revision: $Rev: 7448 $
+Last Modified: $Date: 2011-10-04 20:51:15 +0530 (Fri, 13 May 2011) $
+Last Modified By: $Author: stukol $
+Note: In simpletypes, underscores will be changed to spaces for display in GUI dropdown items
+-->
+<xs:schema id="WESConfigSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="WESConfiguration" type="WESConfigurationType"/>
+
+
+  <xs:complexType name="WESConfigurationType">
+    <xs:all>
+      <xs:element name="connection" type="connectionType" minOccurs="0"/>
+      <xs:element name="deviceConfiguration" type="deviceConfigurationType" minOccurs="0"/>
+      <xs:element name="osConfiguration" type="osConfigurationType" minOccurs="0"/>
+      <xs:element name="common" type="commonType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <!-- connection configuration -->
+
+  <xs:complexType name="connectionType">
+    <xs:all>
+      <xs:element name="rdpConnectionSet" type="rdpConnectionSetType" minOccurs="0"/>
+      <xs:element name="vmviewConnection" type="viewConnectionType" minOccurs="0"/>
+      <xs:element name="citrixConnection" type="citrixConnectionType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <!-- RDP configuration -->
+
+  <xs:complexType name="rdpConnectionSetType">
+    <xs:sequence>
+      <xs:element name="rdpConnection" type="rdpConnectionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="rdpConnectionType">
+    <xs:all>
+      <xs:element name="connectionName" type="xs:string"/>
+      <xs:element name="full_address" type="xs:string" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="connection_type" type="connection_typeType" minOccurs="0"/>
+      <xs:element name="alternateShell" type="xs:string" minOccurs="0"/>
+      <xs:element name="shellWorkingDirectory" type="xs:string" minOccurs="0"/>
+      <xs:element name="desktopResolution" type="displayResolutionType" minOccurs="0"/>
+      <xs:element name="screen_mode_id" type="screenModeType" minOccurs="0"/>
+      <xs:element name="session_bpp" type="colorsType" minOccurs="0"/>
+      <xs:element name="audiomode" type="audioModeType" minOccurs="0"/>
+      <xs:element name="displayconnectionbar" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="compression" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="autoreconnection_enabled" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="allow_desktop_composition" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="allow_font_smoothing" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="audiocapturemode" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="bitmapcachepersistenable" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="authentication_level" type="authentication_levelType" minOccurs="0"/>
+      <xs:element name="disable_cursor_setting" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="disable_full_window_drag" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="disable_menu_anims" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="disable_themes" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="disable_wallpaper" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="gatewaycredentialssource" type="gatewaycredentialssourceType" minOccurs="0"/>
+      <xs:element name="gatewayprofileusagemethod" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="gatewayusagemethod" type="gatewayusagemethodType" minOccurs="0"/>
+      <xs:element name="keyboardhook" type="keyboardhookType" minOccurs="0"/>
+      <xs:element name="negotiate_security_layer" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="prompt_for_credentials" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="promptcredentialonce" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="redirectclipboard" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="redirectcomports" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="redirectdirectx" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="redirectdrives" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="redirectposdevices" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="redirectprinters" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="redirectsmartcards" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="remoteapplicationmode" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="use_multimon" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="use_redirection_server_name" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="videoplaybackmode" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="domain" type="xs:string" minOccurs="0"/>
+      <xs:element name="winposstr" type="xs:string" minOccurs="0"/>
+      <xs:element name="alternate_shell" type="xs:string" minOccurs="0"/>
+      <xs:element name="devicestoredirect" type="xs:string" minOccurs="0"/>
+      <xs:element name="gatewayhostname" type="xs:string" minOccurs="0"/>
+      <xs:element name="drivestoredirect" type="xs:string" minOccurs="0"/>
+      <xs:element name="shell_working_directory" type="xs:string" minOccurs="0"/>
+      <xs:element name="autostart" type="xs:boolean" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <!--
+  RDPs gatewayusagemethod
+TSC_PROXY_MODE_NONE_DIRECT:0 (0x0)
+Do not use an RD Gateway server. In the Remote Desktop Connection (RDC) client UI, the Bypass RD Gateway server for local addresses check box is cleared.
+
+TSC_PROXY_MODE_DIRECT:1 (0x1)
+Always use an RD Gateway server. In the RDC client UI, the Bypass RD Gateway server for local addresses check box is cleared.
+
+TSC_PROXY_MODE_DETECT:2 (0x2)
+Use an RD Gateway server if a direct connection cannot be made to the RD Session Host server. In the RDC client UI, the Bypass RD Gateway server for local addresses check box is selected.
+
+TSC_PROXY_MODE_DEFAULT:3 (0x3)
+Use the default RD Gateway server settings.
+
+TSC_PROXY_MODE_NONE_DETECT:4 (0x4)
+Do not use an RD Gateway server. In the RDC client UI, the Bypass RD Gateway server for local addresses check box is selected.
+-->
+  <xs:simpleType name="gatewayusagemethodType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 1: Windowed mode -->
+  <!-- 2: FullScreen mode -->
+  <xs:simpleType name="screenModeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration id="Windowed_Mode" value="1"/>
+      <xs:enumeration id="Full_Screen_Mode" value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <!-- 0: On this computer -->
+  <!-- 1: on the remote computer -->
+  <!-- 2: Only when using full screen -->
+
+  <xs:simpleType name="keyboardhookType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration id="OnThisComputer" value="0"/>
+      <xs:enumeration id="OnTheRemoteComputer" value="1"/>
+      <xs:enumeration id="OnlyWhenUsingFullscreen" value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- 0: Bring to this computer -->
+  <!-- 1: Leave at remote computer -->
+  <!-- 2: Do not play -->
+
+  <xs:simpleType name="audioModeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration id="PlayOnThisComputer" value="0"/>
+      <xs:enumeration id="DoNotPlay" value="2"/>
+      <xs:enumeration id="PlayOnRemoteComputer" value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+
+  <!-- 0: Connect and dont warn me -->
+  <!-- 1: Do not connect -->
+  <!-- 2: Warn me -->
+
+  <xs:simpleType name="authentication_levelType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration id="ConnectAndDontWarnMe" value="0"/>
+      <xs:enumeration id="DoNotConnect" value="1"/>
+      <xs:enumeration id="WarnMe" value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <!-- 0: User Password -->
+  <!-- 1: SmartCard -->
+  <!-- 4: Ask Me Later -->
+  <xs:simpleType name="gatewaycredentialssourceType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration id="AskForPasswordNTLM" value="0"/>
+      <xs:enumeration id="Smartcard" value="1"/>
+      <xs:enumeration id="AllowMeToSelectLater" value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="connection_typeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration id="Modem56Kbps" value="1"/>
+      <xs:enumeration id="LowSpeedBroadband256Kbps-2Mbps" value="2"/>
+      <xs:enumeration id="Satellite2Mbps-16MbpsWithHighLatency" value="3"/>
+      <xs:enumeration id="High-speedBroadband2Mbps-10Mbps" value="4"/>
+      <xs:enumeration id="WAN-10MbpsorhigherwithHighLatency" value="5"/>
+      <xs:enumeration id="LAN-10MbpsOrhigher" value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="colorsType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="RDP_15_Bit_High_Color" value="15"/>
+      <xs:enumeration id="RDP_16_Bit_High_Color" value="16"/>
+      <xs:enumeration id="RDP_24_Bit_True_Color" value="24"/>
+      <xs:enumeration id="RDP_32_Bit_Highest_Quality" value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="userAudioSettingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Default_User_Audio_Setting" value=""/>
+      <xs:enumeration id="High_Definition" value="high"/>
+      <xs:enumeration id="Optimized_for_Speech" value="medium"/>
+      <xs:enumeration id="Low_Bandwidth" value="low"/>
+      <xs:enumeration id="Off" value="off"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="logonMethodsType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Default_Logon_Method" value=""/>
+      <xs:enumeration id="Prompt_User" value="prompt"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="displayDimensionsType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Citrix_Default_Display_Dimensions" value=""/>
+      <xs:enumeration id="Citrix_Seamless" value="seamless"/>
+      <xs:enumeration id="Citrix_Full_Screen" value="fullscreen"/>
+      <xs:enumeration id="Citrix_640_x_480" value="640 X 480"/>
+      <xs:enumeration id="Citrix_800_x_600" value="800 X 600"/>
+      <xs:enumeration id="Citrix_1024_x_600" value="1024 X 600"/>
+      <xs:enumeration id="Citrix_1024_x_768" value="1024 X 768"/>
+      <xs:enumeration id="Citrix_1152_x_684" value="1152 X 684"/>
+      <xs:enumeration id="Citrix_1152_x_864" value="1152 X 864"/>
+      <xs:enumeration id="Citrix_1280_x_720" value="1280 X 720"/>
+      <xs:enumeration id="Citrix_1280_x_768" value="1280 X 768"/>
+      <xs:enumeration id="Citrix_1280_x_800" value="1280 X 800"/>
+      <xs:enumeration id="Citrix_1280_x_1024" value="1280 X 1024"/>
+      <xs:enumeration id="Citrix_1366_x_768" value="1366 X 768"/>
+      <xs:enumeration id="Citrix_1400_x_1050" value="1400 X 1050"/>
+      <xs:enumeration id="Citrix_1440_x_900" value="1440 X 900"/>
+      <xs:enumeration id="Citrix_1600_x_1200" value="1600 X 1200"/>
+      <xs:enumeration id="Citrix_1680_x_1050" value="1680 X 1050"/>
+      <xs:enumeration id="Citrix_1776_x_1000" value="1776 X 1000"/>
+      <xs:enumeration id="Citrix_1920_x_1080" value="1920 X 1080"/>
+      <xs:enumeration id="Citrix_1920_x_1200" value="1920 X 1200"/>
+      <xs:enumeration id="Citrix_1920_x_1440" value="1920 X 1440"/>
+      <xs:enumeration id="Citrix_2560_x_1600" value="2560 X 1600"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="userKeyCombosPassthroughType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Default_User_Key_Combos_Passthrough" value=""/>
+      <xs:enumeration id="On_the_local_desktop" value="local"/>
+      <xs:enumeration id="On_the_remote_desktop" value="remote"/>
+      <xs:enumeration id="In_full_screen_desktops_only" value="fullscreenonly"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="sessionColorDepthType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Default" value=""/>
+      <xs:enumeration id="Better_Speed_16Bit" value="4"/>
+      <xs:enumeration id="Better_Appearance_32Bit" value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- no more used    
+	<xs:complexType name="redirectType">
+	<xs:all>
+			<xs:element name="printers" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="comports" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="smartCards" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="drives" type="xs:boolean" minOccurs="0"/>
+	</xs:all>
+	</xs:complexType>
+    
+
+
+	<xs:complexType name="rdpUserExperienceType">
+	<xs:all>
+			<xs:element name="bitmapCache" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="noAnimation" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="noDragging" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="noTheme" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="noWallpaper" type="xs:boolean" minOccurs="0"/>
+	</xs:all>
+	</xs:complexType>
+-->
+
+
+  <!--Configuring Advanced SSL options in VMView-->
+
+  <xs:simpleType name="vmViewcertModeCheckType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Allow_unverifiable_connection_Not_Secure" value="0"/>
+      <xs:enumeration id="Warn_if_connection_is_not_secure" value="1"/>	  
+      <xs:enumeration id="Reject_unverifiable_connection_Secure" value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <!--                      -->
+  <!-- vmView Connection -->
+  <!--                      -->
+
+
+  <xs:complexType name="viewConnectionType">
+    <xs:all>
+      <xs:element name="serverURL" type="xs:string" minOccurs="0"/>
+      <xs:element name="domainName" type="xs:string" minOccurs="0"/>
+      <xs:element name="userName" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="desktopName" type="xs:string" minOccurs="0"/>
+      <xs:element name="desktopLayout" type="xs:string" minOccurs="0"/>
+      <xs:element name="desktopProtocol" type="vmViewProtocolType" minOccurs="0"/>
+      <xs:element name="loginasCurrentUser" type="xs:string" minOccurs="0"/>
+      <xs:element name="brokerHistory" type="xs:string" minOccurs="0"/>
+      <xs:element name="mrBroker" type="xs:string" minOccurs="0"/>
+      <xs:element name="mrAutoConnect" type="xs:string" minOccurs="0"/>
+      <xs:element name="mrUserName" type="xs:string" minOccurs="0"/>
+      <xs:element name="mrDomain" type="xs:string" minOccurs="0"/>
+      <xs:element name="screenSize" type="vmViewScrSizeType" minOccurs="0"/>
+      <xs:element name="autostart" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="enableShade" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="certModeCheck" type="vmViewcertModeCheckType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="citrixConnectionType">
+    <xs:all>
+      <xs:element name="citrixServer" type="xs:string" minOccurs="0"/>
+      <xs:element name="startMenuDisplayEnabled" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="startMenuDisplayRootFolder" type="xs:string" minOccurs="0"/>
+      <xs:element name="desktopDisplayEnabled" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="desktopFolderName" type="xs:string" minOccurs="0"/>
+      <xs:element name="systemTrayDisplayEnabled" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="userAudioSetting" type="userAudioSettingType" minOccurs="0"/>
+      <xs:element name="logonMethods" type="logonMethodsType" minOccurs="0"/>
+      <xs:element name="displayDimensions" type="displayDimensionsType" minOccurs="0"/>
+      <xs:element name="colorDepth" type="sessionColorDepthType" minOccurs="0"/>
+      <xs:element name="userKeyCombosPassthrough" type="userKeyCombosPassthroughType" minOccurs="0"/>
+      <xs:element name="reconnectFromLogonDisconnected" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="reconnectFromButtonDisconnected" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="reconnectFromLogonActive" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="reconnectFromButtonActive" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="autostart" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="citrixUserName" type="xs:string" minOccurs="0"/>
+      <xs:element name="citrixDomain" type="xs:string" minOccurs="0"/>
+      <xs:element name="citrixPassword" type="xs:string" minOccurs="0"/>
+      <xs:element name="citrixLaunchApp" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="vmViewScrSizeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="VM_Full_Screen" value="Fullscreen"/>
+      <xs:enumeration id="VM_Large" value="Large"/>
+      <xs:enumeration id="VM_Multi_Monitor" value="Multimonitor"/>
+      <xs:enumeration id="VM_Small" value="Small"/>
+      <xs:enumeration id="VM_640_x_480" value="640x480"/>
+      <xs:enumeration id="VM_800_x_600" value="800x600"/>
+      <xs:enumeration id="VM_1024_x_600" value="1024x600"/>
+      <xs:enumeration id="VM_1024_x_768" value="1024x768"/>
+      <xs:enumeration id="VM_1152_x_684" value="1152x684"/>
+      <xs:enumeration id="VM_1152_x_864" value="1152x864"/>
+      <xs:enumeration id="VM_1280_x_720" value="1280x720"/>
+      <xs:enumeration id="VM_1280_x_768" value="1280x768"/>
+      <xs:enumeration id="VM_1280_x_800" value="1280x800"/>
+      <xs:enumeration id="VM_1280_x_1024" value="1280x1024"/>
+      <xs:enumeration id="VM_1366_x_768" value="1366x768"/>
+      <xs:enumeration id="VM_1400_x_1050" value="1400x1050"/>
+      <xs:enumeration id="VM_1440_x_900" value="1440x900"/>
+      <xs:enumeration id="VM_1600_x_1200" value="1600x1200"/>
+      <xs:enumeration id="VM_1680_x_1050" value="1680x1050"/>
+      <xs:enumeration id="VM_1776_x_1000" value="1776x1000"/>
+      <xs:enumeration id="VM_1920_x_1080" value="1920x1080"/>
+      <xs:enumeration id="VM_1920_x_1200" value="1920x1200"/>
+      <xs:enumeration id="VM_1920_x_1440" value="1920x1440"/>
+      <xs:enumeration id="VM_2560_x_1600" value="2560x1600"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vmViewProtocolType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="None" value=""/>
+      <xs:enumeration id="RDP" value="RDP"/>
+      <xs:enumeration id="PCoIP" value="PCoIP"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--                      -->
+  <!-- device configuration -->
+  <!--                      -->
+
+  <xs:complexType name="deviceConfigurationType">
+    <xs:all>
+      <xs:element name="display" type="displayType" minOccurs="0"/>
+      <xs:element name="mouse" type="mouseType" minOccurs="0"/>
+      <xs:element name="keyboard" type="keyboardType" minOccurs="0"/>
+      <xs:element name="timeZone" type="timeZoneType" minOccurs="0"/>
+      <xs:element name="ethernetSettings" type="NetworkSettingsType" minOccurs="0"/>
+      <xs:element name="wirelessSettings" type="WirelessSettingsType" minOccurs="0"/>
+      <xs:element name="audioSettings" type="audioSettingsType" minOccurs="0"/>
+      <xs:element name="powerSettings" type="powerSettingsType" minOccurs="0"/>
+      <xs:element name="otherSettings" type="otherSettingsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="otherSettingsType">
+    <xs:all>
+      <xs:element name="USBSettings" type="USBSettingsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="audioSettingsType">
+    <xs:all>
+      <xs:element name="lineoutMute" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="lineoutVolume" type="volumeType" minOccurs="0"/>
+      <xs:element name="micMute" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="micVolume" type="volumeType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <xs:simpleType name="volumeType">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="powerSettingsType">
+    <xs:all>
+      <xs:element name="powerPlanDefault" type="powerPlanTypes" minOccurs="0"/>
+      <xs:element name="dimdisplayOnBattery" type="planTimeSettingsType" minOccurs="0"/>
+      <xs:element name="dimdisplayPluggedIn" type="planTimeSettingsType" minOccurs="0"/>
+      <xs:element name="offdisplayOnBattery" type="planTimeSettingsType" minOccurs="0"/>
+      <xs:element name="offdisplayPluggedIn" type="planTimeSettingsType" minOccurs="0"/>
+      <xs:element name="sleepcomputerOnBattery" type="planTimeSettingsType" minOccurs="0"/>
+      <xs:element name="sleepcomputerPluggedIn" type="planTimeSettingsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="powerPlanTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Balanced" value="Balanced"/>
+      <xs:enumeration id="Power_Saver" value="PowerSaver"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--                      
+    <xs:complexType name="planSettingsType">
+        <xs:all>
+		    <xs:element name="dimdisplayOnBattery" type="planTimeSettingsType"/>
+            <xs:element name="dimdisplaypluggedIn" type="planTimeSettingsType"/>
+            <xs:element name="offdisplayOnBattery" type="planTimeSettingsType"/>
+            <xs:element name="offdisplayPluggedIn" type="planTimeSettingsType"/>
+            <xs:element name="sleepcomputerOnBattery" type="planTimeSettingsType"/>
+            <xs:element name="sleepcomputerpluggedIn" type="planTimeSettingsType"/>
+        </xs:all>
+	</xs:complexType>
+-->
+  <xs:simpleType name="planTimeSettingsType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Delay_Not_Applicable" value=" "/>
+      <xs:enumeration id="Delay_1_Minute" value="1 minute"/>
+      <xs:enumeration id="Delay_2_Minutes" value="2 minutes"/>
+      <xs:enumeration id="Delay_3_Minutes" value="3 minutes"/>
+      <xs:enumeration id="Delay_5_Minutes" value="5 minutes"/>
+      <xs:enumeration id="Delay_10_Minutes" value="10 minutes"/>
+      <xs:enumeration id="Delay_15_Minutes" value="15 minutes"/>
+      <xs:enumeration id="Delay_20_Minutes" value="20 minutes"/>
+      <xs:enumeration id="Delay_25_Minutes" value="25 minutes"/>
+      <xs:enumeration id="Delay_30_Minutes" value="30 minutes"/>
+      <xs:enumeration id="Delay_45_Minutes" value="45 minutes"/>
+      <xs:enumeration id="Delay_1_Hour" value="1 hour"/>
+      <xs:enumeration id="Delay_2_Hours" value="2 hours"/>
+      <xs:enumeration id="Delay_3_Hours" value="3 hours"/>
+      <xs:enumeration id="Delay_4_Hours" value="4 hours"/>
+      <xs:enumeration id="Delay_5_Hours" value="5 hours"/>
+      <xs:enumeration id="Delay_Never" value="Never"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="NetworkSettingsType">
+    <xs:all>
+      <xs:element name="ipAddress" type="IPAddressType" minOccurs="0"/>
+      <xs:element name="dnsAddress" type="dnsAddressType" minOccurs="0"/>
+      <xs:element name="winsAddress" type="winsAddressType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <xs:complexType name="dnsAddressType">
+    <xs:choice>
+      <xs:element name="staticDNS" type ="staticDNSType" />
+      <xs:element name="dhcp"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="IPAddressType">
+    <xs:choice>
+      <xs:element name="staticIP" type="staticIPType" />
+      <xs:element name="dhcp"/>
+    </xs:choice>
+
+  </xs:complexType>
+
+  <xs:complexType name="staticIPType">
+    <xs:sequence>
+      <xs:element name="ip" type="ipType"/>
+      <xs:element name="subnet" type="ipType"/>
+      <xs:element name="gateway" type="ipType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="winsAddressType">
+    <xs:all>
+      <xs:element name="wins1" type="ipType" minOccurs="0"/>
+      <xs:element name="wins2" type="ipType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="staticDNSType">
+    <xs:all>
+      <xs:element name="dns1" type="ipType" minOccurs="0"/>
+      <xs:element name="dns2" type="ipType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <xs:simpleType name="ipType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9.]*"/>
+      <xs:minLength value="7"/>
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="USBSettingsType">
+    <xs:all>
+      <xs:element name="USBAccess" type="USBAccessType" minOccurs = "0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="USBAccessType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Disabled" value="Disabled"/>
+      <xs:enumeration id="Enable_Read" value="Enable Read"/>
+      <xs:enumeration id="Enable_Write" value="Enable Write"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <!--Wireless configuration-->
+  <xs:complexType name="WirelessSettingsType">
+    <xs:all>
+      <xs:element name="currentProfile" type="xs:string"  minOccurs="0"/>
+      <xs:element name="swRadioState" type="swRadioStateType"  minOccurs="0"/>
+      <xs:element name="wlanProfileSet" type="wlanProfileSetType"  minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="swRadioStateType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="on" value="on"/>
+      <xs:enumeration id="off" value="off"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="wlanProfileSetType">
+    <xs:sequence>
+      <xs:element name="WLANProfile" type="wlanProfileType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:simpleType name="nameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType  name="connectionMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="auto" value="auto" />
+      <xs:enumeration id="manual" value="manual" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="WLANconnectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="IBSS" value="IBSS" />
+      <xs:enumeration id="ESS" value="ESS" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="authentication">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="open" value="open" />
+      <xs:enumeration id="shared" value="shared" />
+      <xs:enumeration id="WPA" value="WPA" />
+      <xs:enumeration id="WPAPSK" value="WPAPSK" />
+      <xs:enumeration id="WPA2" value="WPA2" />
+      <xs:enumeration id="WPA2PSK" value="WPA2PSK" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="encryption">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="none" value="none" />
+      <xs:enumeration id="WEP" value="WEP" />
+      <xs:enumeration id="TKIP" value="TKIP" />
+      <xs:enumeration id="AES" value="AES" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="keyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Pass_Phrase" value="passPhrase" />
+      <xs:enumeration id="Network_Key" value="networkKey" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EAPType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="MD5-Challenge" value="4" />
+      <xs:enumeration id="EAP-TLS" value="13" />
+      <xs:enumeration id="PEAP" value="25" />
+      <xs:enumeration id="MS-EAP-Authentication" value="26" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:complexType name="wlanProfileType">
+    <xs:sequence>
+      <!-- Profile name is required. -->
+      <xs:element name="name" type="nameType"/>
+      <!-- WLAN network settings -->
+      <!-- SSID's and connectionType are required. -->
+      <xs:element name="SSIDConfig" maxOccurs="256">
+        <xs:complexType>
+          <xs:sequence>
+            <!-- In this version, only one <SSID> is supported from UI -->
+            <xs:element name="SSID" maxOccurs="256">
+              <xs:complexType>
+                <xs:sequence>
+                  <!-- Either Hex or named SSID must be present. -->
+                  <!-- Hex SSID takes precedence over named SSID. -->
+                  <xs:element name="hex" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:hexBinary">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="32" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="name" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="32" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <!-- extension point for other namespaces -->
+                  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+                  maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+
+            <!--
+Flag to indicate whether SSIDs within the same SSIDConfig group will be
+broadcasted or not. Default value is "false"
+-->
+            <xs:element name="nonBroadcast" type="xs:boolean" minOccurs="0" />
+            <!-- extension point for other namespaces -->
+            <xs:any namespace="##other" processContents="lax" minOccurs="0"
+            maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="connectionType">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="IBSS" />
+            <xs:enumeration value="ESS" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <!--
+Specify connection mode when a network is in range
+Default value = "auto"
+-->
+      <xs:element name="connectionMode" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+
+            <xs:enumeration value="auto" />
+            <xs:enumeration value="manual" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <!--
+Flag to determine roaming behavior when a more preferred network is in range
+Default value = "true"
+-->
+      <xs:element name="autoSwitch" type="xs:boolean" minOccurs="0" />
+      <!-- wireless LAN MSM settings -->
+      <xs:element name="MSM" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="connectivity" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="phyType" minOccurs="0" maxOccurs="4">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="a" />
+                        <xs:enumeration value="b" />
+                        <xs:enumeration value="g" />
+                        <!-- this value is reserved for future use -->
+                        <xs:enumeration value="n" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+
+                  <!-- extension point for other namespaces -->
+                  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+                  maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <!-- security settings -->
+            <xs:element name="security" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="authEncryption" minOccurs="0">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <!-- valid authentication methods -->
+                        <xs:element name="authentication">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:enumeration value="open" />
+                              <xs:enumeration value="shared" />
+                              <xs:enumeration value="WPA" />
+                              <xs:enumeration value="WPAPSK" />
+                              <xs:enumeration value="WPA2" />
+                              <xs:enumeration value="WPA2PSK" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <!-- valid encryption methods -->
+
+                        <xs:element name="encryption">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:enumeration value="none" />
+                              <xs:enumeration value="WEP" />
+                              <xs:enumeration value="TKIP" />
+                              <xs:enumeration value="AES" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <!-- flag indicating use of 802.1X -->
+                        <xs:element name="useOneX" type="xs:boolean" minOccurs="0" />
+                        <!-- flag indicating FIPS mode (v2 namespace) -->
+                        <xs:element name="FIPSMode" type="xs:boolean" minOccurs="0" xmlns =
+"http://www.microsoft.com/networking/WLAN/profile/v2"/>
+                        <!-- extension point for other namespaces -->
+                        <xs:any namespace="##other" processContents="lax" minOccurs="0"
+                        maxOccurs="unbounded" />
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <!-- Optional MSM security settings. -->
+                  <!--
+For WPA2, the default value is "enabled"
+for all others, the default value is "disabled"
+-->
+                  <xs:element name="sharedKey" minOccurs="0">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="keyType">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:enumeration value="networkKey"/>
+                              <xs:enumeration value="passPhrase"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="protected" type="xs:boolean"/>
+                        <xs:element name="keyMaterial" type="xs:string"/>
+                        <xs:any
+                            processContents="lax"
+                            minOccurs="0"
+                            maxOccurs="unbounded"
+                            namespace="##other"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="keyIndex" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="3"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="PMKCacheMode" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="disabled" />
+                        <xs:enumeration value="enabled" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <!-- the default value is 720 minutes -->
+                  <xs:element name="PMKCacheTTL" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="5" />
+                        <xs:maxInclusive value="1440" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <!-- the default value is 128 entries -->
+                  <xs:element name="PMKCacheSize" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="1" />
+                        <xs:maxInclusive value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+
+                  </xs:element>
+                  <!-- the default value is "disabled" -->
+                  <xs:element name="preAuthMode" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="disabled" />
+                        <xs:enumeration value="enabled" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <!-- the default value is 3 times -->
+                  <xs:element name="preAuthThrottle" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="1" />
+                        <xs:maxInclusive value="16" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <!-- extension point for other namespaces -->
+                  <!-- this is also the insertion point for OneX namespace -->
+                  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+                  maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+
+            <!-- extension point for other namespaces -->
+            <xs:any namespace="##other" processContents="lax" minOccurs="0"
+            maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!-- extension point for other namespaces -->
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"
+/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- display configuration -->
+  <xs:complexType name="displayType">
+    <xs:all>
+      <xs:element name="displayDesktopColor" type="colorType" minOccurs="0"/>
+      <xs:element name="displayDesktopBackground" type="displayDesktopBackgroundType" minOccurs="0"/>
+      <xs:element name="displayParams" type="displayParamsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="colorType">
+    <xs:sequence>
+      <xs:element name="red" type="singleColorType"/>
+      <xs:element name="green" type="singleColorType"/>
+      <xs:element name="blue" type="singleColorType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="singleColorType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="displayDesktopBackgroundType">
+    <xs:all>
+      <xs:element name="file" type="bitmapFileType" minOccurs="0"/>
+      <xs:element name="layout" type="layoutType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="layoutType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Fill" value="fill"/>
+      <xs:enumeration id="Fit" value="fit"/>
+      <xs:enumeration id="Stretch" value="stretch"/>
+      <xs:enumeration id="Tile" value="tile"/>
+      <xs:enumeration id="Center" value="center"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="bitmapFileType">
+    <xs:all>
+      <xs:element name="fileName" type="xs:string" minOccurs="0"/>
+      <xs:element name="sourcePath" type="xs:string" minOccurs="0"/>
+      <xs:element name="destPath" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <!--    
+	<xs:simpleType name="bitmapFileType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z_-][a-zA-Z0-9_.-]*"/>
+			<xs:minLength value="4"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+-->
+  <xs:complexType name="displayParamsType">
+    <xs:sequence>
+      <xs:element name="multipleDisplays" type="multipleDisplaysType" minOccurs="0"/>
+      <xs:element name="manual" type="displayManualParamsType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="multipleDisplaysType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Single_Monitor" value="Single"/>
+      <xs:enumeration id="Extend_these_displays" value="Extend"/>
+      <xs:enumeration id="Duplicate_these_displays" value="Clone"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:group name="displayConfigurationGroup">
+    <xs:sequence>
+      <xs:element name="displayResolution" type="displayResolutionType" minOccurs="0"/>
+      <xs:element name="displayRefreshRate" type="displayRefreshRateType" minOccurs="0"/>
+      <xs:element name="colorDepth" type="colorDepthType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="displayManualParamsType">
+    <xs:sequence>
+      <xs:element name="displayIdentifier" type="xs:string" minOccurs="0"/>
+      <xs:element name="primary" type="xs:boolean" minOccurs="0"/>
+      <xs:choice>
+        <xs:element name="defaultDisplayConfiguration" type="defaultDisplayConfigType" minOccurs="0"/>
+        <xs:group ref="displayConfigurationGroup" minOccurs="0"/>
+      </xs:choice>
+      <xs:element name="displayOrientation" type="displayOrientationType" minOccurs="0"/>
+      <xs:element name="displayPosition" type="displayPositionType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="defaultDisplayConfigType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="displayResolutionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Display_640_x_480" value="640x480"/>
+      <xs:enumeration id="Display_800_x_600" value="800x600"/>
+      <xs:enumeration id="Display_1024_x_600" value="1024x600"/>
+      <xs:enumeration id="Display_1024_x_768" value="1024x768"/>
+      <xs:enumeration id="Display_1152_x_684" value="1152x684"/>
+      <xs:enumeration id="Display_1152_x_864" value="1152x864"/>
+      <xs:enumeration id="Display_1280_x_720" value="1280x720"/>
+      <xs:enumeration id="Display_1280_x_768" value="1280x768"/>
+      <xs:enumeration id="Display_1280_x_800" value="1280x800"/>
+      <xs:enumeration id="Display_1280_x_1024" value="1280x1024"/>
+      <xs:enumeration id="Display_1366_x_768" value="1366x768"/>
+      <xs:enumeration id="Display_1400_x_1050" value="1400x1050"/>
+      <xs:enumeration id="Display_1440_x_900" value="1440x900"/>
+      <xs:enumeration id="Display_1600_x_1200" value="1600x1200"/>
+      <xs:enumeration id="Display_1680_x_1050" value="1680x1050"/>
+      <xs:enumeration id="Display_1776_x_1000" value="1776x1000"/>
+      <xs:enumeration id="Display_1920_x_1080" value="1920x1080"/>
+      <xs:enumeration id="Display_1920_x_1200" value="1920x1200"/>
+      <xs:enumeration id="Display_1920_x_1440" value="1920x1440"/>
+      <xs:enumeration id="Display_2560_x_1600" value="2560x1600"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="displayRefreshRateType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Refresh_Rate_60_Hz" value="60"/>
+      <xs:enumeration id="Refresh_Rate_75_Hz" value="75"/>
+      <xs:enumeration id="Refresh_Rate_85_Hz" value="85"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="colorDepthType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Display_16_Bit_High_Color" value="16"/>
+      <xs:enumeration id="Display_24_Bit_True_Color" value="24"/>
+      <xs:enumeration id="Display_32_Bit_Highest_Quality" value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--
+		The displayOrientation tag specifies the orientation at which images should be presented. 
+		Default:    The display orientation is the natural orientation of the display device.
+		90 degrees: The display orientation is rotated 90 degrees (measured clockwise) from DMDO_DEFAULT.
+		180 degrees:The display orientation is rotated 180 degrees (measured clockwise) from DMDO_DEFAULT.
+		270 degrees:The display orientation is rotated 270 degrees (measured clockwise) from DMDO_DEFAULT.
+	-->
+
+  <xs:simpleType name="displayOrientationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Landscape" value="0"/>
+      <xs:enumeration id="Portrait" value="90"/>
+      <xs:enumeration id="Landscape_flipped" value="180"/>
+      <xs:enumeration id="Portrait_flipped" value="270"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="displayPositionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Display_Position_Top" value="Top"/>
+      <xs:enumeration id="Display_Position_Left" value="Left"/>
+      <xs:enumeration id="Display_Position_Right" value="Right"/>
+      <xs:enumeration id="Display_Position_Bottom" value="Bottom"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- mouse configuration -->
+
+  <xs:complexType name="mouseType">
+    <xs:all>
+      <xs:element name="hideMouse" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="mouseSpeed" type="mouseSpeedType" minOccurs="0"/>
+      <xs:element name="mouseSwap" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="pointerTrail" type="pointerTrailType" minOccurs="0"/>
+      <xs:element name="scrollLines" type="mouseScrollType" minOccurs="0"/>
+      <xs:element name="doubleClickSpeed" type="mouseDoubelClickType" minOccurs="0"/>
+      <xs:element name="snapPointer" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="MouseClickLock" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="ClickLockTime" type="ClickLockTimeType" minOccurs="0"/>
+      <xs:element name="findMouseSonar" type="xs:boolean" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="ClickLockTimeType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="200"/>
+      <xs:maxInclusive value="2200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="pointerTrailType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- mouse speed configuration -->
+  <!-- min value of 1 -->
+  <!-- default is value of 10 -->
+  <!-- max value of 20 -->
+
+
+  <xs:simpleType name="mouseSpeedType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <!-- mouse wheel scroll configuration -->
+  <!-- min is value of 0 -->
+  <!-- def is value of 3 -->
+  <!-- maxumum is value of 100 -->
+
+  <xs:simpleType name="mouseScrollType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- mouse double click configuration. values in milliseconds -->
+  <!-- slow is value of 1000 -->
+  <!-- medium is value of 500 -->
+  <!-- fast is value of 100 -->
+
+  <xs:simpleType name="mouseDoubelClickType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="200"/>
+      <xs:maxInclusive value="900"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <!-- keyboard configuration -->
+
+  <xs:complexType name="keyboardType">
+    <xs:all>
+      <xs:element name="defKBLayout" type="xs:string" minOccurs="0"/>
+      <xs:element name="repeatDelayMs" type="repeatDelayMsType" minOccurs="0"/>
+      <xs:element name="repeatRate" type="repeatRateType" minOccurs="0"/>
+      <xs:element name="keyboardPref" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="menuAccess" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="cursorBlinkRate" type="cursorBlinkRateType" minOccurs="0"/>
+      <xs:element name="inputLanguage" type="inputLanguageType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="inputLanguageType">
+    <xs:sequence>
+      <xs:element name="langId" type="xs:string" minOccurs="1" maxOccurs="50"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="keyboardRepeatType">
+    <xs:all>
+      <xs:element name="repeatDelayMs" type="repeatDelayMsType"/>
+      <xs:element name="repeatRate" type="repeatRateType"/>
+    </xs:all>
+  </xs:complexType>
+
+  <!-- Keyboard repeat delay configuration.  -->
+  <!-- short is value of 0(250 ms) -->
+  <!-- mediumShort is value of 1(500 ms) -->
+  <!-- mediumLong is value of 2(750 ms) -->
+  <!-- long is value of 3(1000 ms) -->
+
+  <xs:simpleType name="repeatDelayMsType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration id="Short" value="0"/>
+      <xs:enumeration id="Medium_Short" value="1"/>
+      <xs:enumeration id="Medium_Long" value="2"/>
+      <xs:enumeration id="Long" value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="cursorBlinkRateType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="-1"/>
+      <xs:maxInclusive value="1200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+
+  <!-- Keyboard repeat rate configuration.  -->
+  <!-- slow is value of 0(2.5 repetitions per sec) -->
+  <!-- medium is value of 15(14 repetitions per sec) -->
+  <!-- fast is value of 30(31 repetitions per sec) -->
+
+  <xs:simpleType name="repeatRateType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="31"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+
+
+  <!-- time zone configuration -->
+
+  <xs:complexType name="timeZoneType">
+    <xs:all>
+      <xs:element name="standardName" type="xs:string" minOccurs="0"/>
+      <xs:element name="daylightName" type="xs:string" minOccurs="0"/>
+      <xs:element name="bias" type="xs:string" minOccurs="0"/>
+      <xs:element name="daylightBias" type="xs:string" minOccurs="0"/>
+      <xs:element name="standardBias" type="xs:string" minOccurs="0"/>
+      <xs:element name="timeZoneKeyName" type="xs:string" minOccurs="0"/>
+      <xs:element name="dynamicDaylightTimeDisable" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="timeServer" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <!--                      -->
+  <!-- os configuration -->
+  <!--                      -->
+
+  <xs:complexType name="osConfigurationType">
+    <xs:all>
+      <xs:element name="clocks" type="clocksSetType" minOccurs="0"/>
+      <xs:element name="aeroFeature" type="aeroType" minOccurs="0"/>
+      <xs:element name="windowsFirewall" type="windowsFirewallType" minOccurs="0"/>
+      <xs:element name="internetExplorerSettings" type="internetExplorerSettingsType" minOccurs="0"/>
+      <xs:element name="otherOSSettings" type="otherOSSettingsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="clocksSetType">
+    <xs:all>
+      <xs:element name="clock1" type="clockType" minOccurs="0"/>
+      <xs:element name="clock2" type="clockType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="clockType">
+    <xs:all>
+      <xs:element name="displayName" type="xs:string"/>
+      <xs:element name="tzregKeyname" type="xs:string"/>
+      <xs:element name="enable" type="xs:boolean"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="aeroType">
+    <xs:all>
+      <xs:element name="enableAero" type="xs:boolean" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="firewallProfileType">
+    <xs:all>
+      <xs:element name="enableFirewall" type="xs:boolean" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="windowsFirewallType">
+    <xs:all>
+      <xs:element name="enableFirewall" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="domainProfile" type="firewallProfileType" minOccurs="0"/>
+      <xs:element name="publicProfile" type="firewallProfileType" minOccurs="0"/>
+      <xs:element name="privateProfile" type="firewallProfileType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  <!--
+  <xs:simpleType name="enabledisableType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+-->
+
+  <xs:complexType name="internetExplorerSettingsType">
+    <xs:all>
+      <xs:element name="homePage" type="xs:string" minOccurs="0"/>
+      <xs:element name="internetZoneSettings" type="internetZoneType" minOccurs="0"/>
+      <xs:element name="internetProxy" type="internetProxyType" minOccurs="0"/>
+      <xs:element name="ieFavoriteSet" type="ieFavoriteSetType" minOccurs="0"/>
+      <xs:element name="ieSecuritySettings" type="ieSecuritySettingsType" minOccurs="0"/>
+      <xs:element name="autostart" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="autostartURL" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="ieFavoriteSetType">
+    <xs:sequence>
+      <xs:element name="favorite" type="favoriteType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="favoriteType">
+    <xs:sequence>
+      <xs:element name="folderName" type="xs:string" minOccurs="0"/>
+      <xs:element name="urlDescription" type="xs:string" minOccurs="0"/>
+      <xs:element name="url" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ieSecuritySettingsType">
+    <xs:all>
+      <xs:element name ="trustedsites" type="trustedsitesType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name ="trustedsitesType">
+    <xs:sequence>
+      <xs:element name="verificationRequired" type="xs:boolean" minOccurs="1"/>
+      <xs:element name ="url" type ="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="internetZoneType">
+    <xs:all>
+      <xs:element name="internetZone" type="internetZoneLevel" minOccurs="0"/>
+      <xs:element name="localIntranetZone" type="allZoneLevel" minOccurs="0"/>
+      <xs:element name="trustedSiteZone" type="allZoneLevel" minOccurs="0"/>
+      <xs:element name="restrictedSiteZone" type="allZoneLevel" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="internetZoneLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Internet_Zone_High" value="high"/>
+      <xs:enumeration id="Internet_Zone_Medium_High" value="medium-high"/>
+      <xs:enumeration id="Internet_Zone_Medium" value="medium"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="allZoneLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="High" value="high"/>
+      <xs:enumeration id="Medium_High" value="medium-high"/>
+      <xs:enumeration id="Medium" value="medium"/>
+      <xs:enumeration id="Medium_Low" value="medium-low"/>
+      <xs:enumeration id="Low" value="low"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="internetProxyType">
+    <xs:all>
+      <xs:element name="proxyEnable" type="xs:boolean"/>
+      <xs:element name="proxyAutoDetect" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="proxyAutoConfigURL" type="xs:string" minOccurs="0"/>
+      <xs:element name="proxyServer" type="xs:string" minOccurs="0"/>
+      <xs:element name="proxyServerPort" type="portValuesType" minOccurs="0"/>
+      <xs:element name="proxyByPass" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="portValuesType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="65535"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--                      -->
+  <!--    common settings   -->
+  <!--                      -->
+
+  <xs:complexType name="otherOSSettingsType">
+    <xs:all>
+      <xs:element name="applianceModeSettings" type="applianceModeSettingsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <xs:complexType name="applianceModeSettingsType">
+    <xs:all>
+      <xs:element name="applianceMode" type="applianceModeType" minOccurs="0"/>
+      <xs:element name="applianceConnection" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="applianceModeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Appliance_Mode_RDP" value="RDP"/>
+      <xs:enumeration id="Appliance_Mode_IE" value="InternetExplorer"/>
+      <xs:enumeration id="Appliance_Mode_VMView" value="VMView"/>
+      <xs:enumeration id="Appliance_Mode_Citrix" value="Citrix"/>
+      <xs:enumeration id="Appliance_Mode_Desktop" value="Desktop"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="commonType">
+    <xs:all>
+      <xs:element name="commonSettings" type="commonSettingsType" minOccurs="1"/>
+      <xs:element name="agentSettings" type="clientGUISettingsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="commonSettingsType">
+    <xs:all>
+      <xs:element name="version" type="xs:string" minOccurs="0"/>
+      <xs:element name="OSType" type="OSTypeValues" minOccurs="1"/>
+      <xs:element name="reset" type="xs:boolean" minOccurs="1"/>
+      <xs:element name="enableBalloonTips" type="xs:boolean" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+
+  <xs:complexType name="clientGUISettingsType">
+    <xs:all>
+      <xs:element name="uiSettings" type="uiSettingsType" minOccurs="0"/>
+      <xs:element name="dhcpSettings" type="dhcpSettingsType" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="dhcpSettingsType">
+    <xs:all>
+      <xs:element name="dhcpServerTag" type="xs:string" minOccurs="0"/>
+      <xs:element name="dhcpPathTag" type="xs:string" minOccurs="0"/>
+      <xs:element name="dhcpProtocolTag" type="xs:string" minOccurs="0"/>
+      <xs:element name="dhcpUsernameTag" type="xs:string" minOccurs="0"/>
+      <xs:element name="dhcpPasswordTag" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="uiSettingsType">
+    <xs:all>
+      <xs:element name="uiProtocol" type="uiProtocolType" minOccurs="1"/>
+      <xs:element name="uiRemoteIP" type="xs:string" minOccurs="0"/>
+      <xs:element name="uiRemotePath" type="xs:string" minOccurs="0"/>
+      <xs:element name="uiRemoteUsername" type="xs:string" minOccurs="0"/>
+      <xs:element name="uiRemotePassword" type="xs:string" minOccurs="0"/>
+      <xs:element name="uiPort" type="xs:string" minOccurs="0"/>
+      <xs:element name="uiImportOnBoot" type="xs:boolean" minOccurs="1"/>
+      <xs:element name="uiUseWDM" type="xs:boolean" minOccurs="1"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="uiProtocolType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="WDM" value="WDM"/>
+      <xs:enumeration id="LOCAL" value="LOCAL"/>
+      <xs:enumeration id="FTP" value="FTP"/>
+      <xs:enumeration id="HTTP" value="HTTP"/>
+      <xs:enumeration id="HTTPS" value="HTTPS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OSTypeValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="WES2009" value="WES 2009"/>
+      <xs:enumeration id="WES7" value="WES 7"/>
+      <xs:enumeration id="Linux" value="Linux"/>
+      <xs:enumeration id="WTOS" value="WTOS"/>
+      <xs:enumeration id="WindowsCE" value="CE"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+
+
